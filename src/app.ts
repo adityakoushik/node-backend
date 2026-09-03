@@ -1,16 +1,21 @@
-const express = require("express");
-require("dotenv").config();
+import express from "express";
 
 const app = express();
-const port = Number(process.env.PORT || 5000);
 
 app.use(express.json());
 
-app.get("/health", (_req, res) => {
+app.get("/api/v1/health", (_req, res) => {
   res.status(200).json({
     status: "ok",
     service: "node-backend",
     environment: process.env.NODE_ENV || "development",
+  });
+});
+
+app.get("/api/v1", (req, res) => {
+  res.status(200).json({
+    success: true,
+    message: "API is running successfully",
   });
 });
 
@@ -21,8 +26,4 @@ app.use((req, res) => {
   });
 });
 
-app.listen(port, () => {
-  console.log(
-    `Server running on port ${port} in ${process.env.NODE_ENV || "development"} mode.`
-  );
-});
+export default app;
