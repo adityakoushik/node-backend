@@ -1,7 +1,7 @@
-import database from "../../database/database";
-import { CreationOptional, InferAttributes, InferCreationAttributes, Model } from "sequelize";
+import sequelize from "../../database/database";
+import { CreationOptional, DataTypes, InferAttributes, InferCreationAttributes, Model } from "sequelize";
 
-import type { userRole, userStatus } from "./user.types";
+import type { UserRole, UserStatus } from "./user.types";
 
 /**
  * InferAttributes = getting all attributes of the User model
@@ -12,9 +12,9 @@ class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
     declare id: CreationOptional<number>;
     declare name: string;
     declare email: string;
-    declare password_hash: string;
-    declare role: CreationOptional<userRole>;
-    declare status: CreationOptional<userStatus>;
+    declare passwordHash: string;
+    declare role: CreationOptional<UserRole>;
+    declare status: CreationOptional<UserStatus>;
     declare createdAt: CreationOptional<Date>;
     declare updatedAt: CreationOptional<Date>;
 
@@ -22,7 +22,72 @@ class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
 
 /**
  * It connects the user class to the actual database table configuration.
+ * This User.init is telling Sequelize that What are the database columns for this User model, and which table will it connect to? 
  */
-// User.init({
+User.init(
+  {
+    id: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      allowNull: false,
+      autoIncrement: true,
+      primaryKey: true
+    },
 
-// })
+    name: {
+      type: DataTypes.STRING(100),
+      allowNull: false
+    },
+
+    email: {
+      type: DataTypes.STRING(255),
+      allowNull: false,
+      unique: true
+    },
+
+    passwordHash: {
+      type: DataTypes.STRING(255),
+      allowNull: false,
+      field: "password_hash"
+    },
+
+    role: {
+      type: DataTypes.ENUM(
+        "ADMIN",
+        "STAFF",
+        "CUSTOMER"
+      ),
+      allowNull: false,
+      defaultValue: "CUSTOMER"
+    },
+
+    status: {
+      type: DataTypes.ENUM(
+        "ACTIVE",
+        "INACTIVE"
+      ),
+      allowNull: false,
+      defaultValue: "ACTIVE"
+    },
+
+    createdAt: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      field: "created_at"
+    },
+
+    updatedAt: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      field: "updated_at"
+    }
+  },
+
+  {
+    sequelize,
+    tableName: "users",
+    timestamps: true,
+    underscored: true
+  }
+);
+
+export default User;

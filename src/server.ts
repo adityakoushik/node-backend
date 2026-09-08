@@ -3,7 +3,6 @@ import "dotenv/config";
 import app from "./app";
 
 // The database module is JavaScript and currently has no TypeScript declarations.
-// @ts-expect-error No declaration file is available for this local JavaScript module.
 import database from "./database/database";
 
 
