@@ -14,3 +14,9 @@ export interface CreateUserInput {
     role?: UserRole; // Optional, defaults to "CUSTOMER"
     status?: UserStatus; // Optional, defaults to "ACTIVE"
 }
+
+export interface RegisterUserInput {
+    name: string;
+    email: string;
+    password: string;
+}
