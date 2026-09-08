@@ -5,7 +5,8 @@ module.exports = {
   async up (queryInterface, Sequelize) {
     
     /**
-     * queryInterface is a database schema manupulation tool provided by Sequelize. It allows you to create, modify, and delete database tables and columns.
+     * queryInterface is a database schema manupulation tool provided by Sequelize. 
+     * It allows you to create, modify, and delete database tables and columns.
      * Sequelize is an ORM (Object-Relational Mapping) library for Node.js
      * By Using Sequelize we can define the datatype of each column in the table.
      */
