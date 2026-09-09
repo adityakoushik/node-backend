@@ -15,8 +15,26 @@ export interface CreateUserInput {
     status?: UserStatus; // Optional, defaults to "ACTIVE"
 }
 
-export interface RegisterUserInput {
+// export interface RegisterUserInput {
+//     name: string;
+//     email: string;
+//     password: string;
+// }
+
+/**
+ * * We dont want to show the whole response object to the user, 
+ * * so we will create a new type for the response object.
+ * * This type will be used to define the shape of the response object that will be sent to the user.
+ * * This type will only include the properties that we want to show to the user.
+ * * This is a good practice to avoid exposing sensitive information to the user.
+ * * For example, we don't want to show the passwordHash property to the user.
+ */
+export interface UserResponse {
+    id: number;
     name: string;
     email: string;
-    password: string;
+    role: UserRole;
+    status: UserStatus;
+    createdAt: Date;
+    updatedAt: Date;
 }

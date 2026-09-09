@@ -1,4 +1,6 @@
 import express from "express";
+import userRoutes from './modules/users/user.routes'
+import { errorHandler } from "./shared/middlewares/error-handler.middleware";
 
 const app = express();
 
@@ -19,11 +21,15 @@ app.get("/api/v1", (req, res) => {
   });
 });
 
+app.use("/api/v1/users", userRoutes);
+
 app.use((req, res) => {
   res.status(404).json({
     success: false,
     message: `Route not found: ${req.method} ${req.originalUrl}`,
   });
 });
+
+app.use(errorHandler)
 
 export default app;

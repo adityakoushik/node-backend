@@ -33,7 +33,7 @@ const startServer = async (): Promise<void> => {
     }catch (error) {
         console.error("Unable to connect to the database:", error);
 
-        // If Database connection fails, exit the process with a failure code
+        // ! If Database connection fails, exit the process with a failure code
         process.exit(1); 
     }
 }
