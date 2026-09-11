@@ -1,5 +1,6 @@
 import express from "express";
 import userRoutes from './modules/users/user.routes'
+import authRoutes from './modules/auth/auth.routes'
 import { errorHandler } from "./shared/middlewares/error-handler.middleware";
 
 const app = express();
@@ -22,6 +23,7 @@ app.get("/api/v1", (req, res) => {
 });
 
 app.use("/api/v1/users", userRoutes);
+app.use("/api/v1/auth", authRoutes);
 
 app.use((req, res) => {
   res.status(404).json({
